@@ -459,6 +459,158 @@ header {
 .category-link li a.active {
   font-weight: 700;
 }
+
+
+// Common Form Styles
+.form-field{width: 100%;}
+.form-field input,.form-field textarea,.form-field select{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;margin: 0;
+    font-size: 12px;
+    height: 45px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-field-wrap{margin-bottom: 1rem;}
+.form-field.col-6{
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.form-field.col-9{
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+.form-field.col-3{
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.pl-1, .px-1 {
+  padding-left: 0.25rem!important;
+}
+.pr-1, .px-1 {
+  padding-right: 0.25rem!important;
+}
+.form-submit-button{
+  background: #E02B2F;
+  color: #fff;
+  border-color: #E02B2F;line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;user-select: none;
+  border: 1px solid transparent;height: 100%;width: 100%;font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 12px 15px;display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.form-field-wrap.mb-0{margin-bottom: 0;}
+.h-100{height: 100%;}
+.form-status-info{padding: 8px;border: 2px solid transparent;font-size: 12px;
+  line-height: 1.2;
+  margin-top: 13px;}
+.form-status-info.success{border-color: green;color: green;}
+.form-status-info.alert{border-color: red;color: red;}
+button.close{    border: 0;
+  -webkit-appearance: none;font-weight: 700;
+  line-height: 1;}
+.custom-close{
+  background: linear-gradient(#49c0ec 0%, #6494db 100%);
+    color: #ffffff;position: absolute;
+    top: 15px;
+    padding: 0 !important;
+    text-shadow: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 15px;
+    opacity: 1;
+    right: 15px;
+    margin: 0 !important;z-index: 1;
+}
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 0.5rem;
+  max-width: 500px;
+  margin: 1.75rem auto;min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+}
+.modal.fade .modal-dialog {
+  transition: -webkit-transform .3s ease-out;
+  transition: transform .3s ease-out;
+  transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+  -webkit-transform: translate(0,-25%);
+  transform: translate(0,-25%);
+}
+.modal.show .modal-dialog {
+  -webkit-transform: translate(0,0);
+  transform: translate(0,0);
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;display: none;background-color: rgba(0,0,0,0);transition: all .3s;-webkit-transition: all .3s;-moz-transition: all .3s;
+}
+.modal.show {
+  overflow-x: hidden;
+  overflow-y: auto;background-color: rgba(0,0,0,.5);
+}
+.fade {
+  transition: opacity .15s linear;
+}
+.fade:not(.show) {
+  opacity: 0;
+}
+
+.modal-body{    position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;padding: 30px 60px;
+  color: #ffffff;
+}
+.modal-body h3{
+  font-size: 25px;
+    font-weight: 700;
+    color: #ffffff;margin-bottom: 1.5rem;
+}
+.modal-header{position: relative;}
+.modal-content{background: -webkit-linear-gradient(#49c0ec 0%, #6494db 100%);
+  background: -o-linear-gradient(#49c0ec 0%, #6494db 100%);
+  background: linear-gradient(#49c0ec 0%, #6494db 100%);}
+
+  .form-field input.outline-style,.form-field textarea.outline-style ,.form-field select.outline-style{
+    background: #ffffff;
+    border-color: #ffffff;
+    border-radius: 0;
+}
+.careers-form .form-field input,.careers-form .form-field textarea,.careers-form .form-field select{padding: 10px;}
+.careers-form .commonButton{border: 1px solid #ffffff;
+  color: #ffffff;
+  background: transparent;}
+.careers-form textarea{    height: auto;}
+
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px;

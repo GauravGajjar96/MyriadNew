@@ -33,16 +33,46 @@ const Form = function Form({ handler, isLoading, isSent, hasError }) {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <div>isLoading: {isLoading ? "Loading" : "false"}</div>
-      <div>isSent: {isSent ? "Sent" : "false"}</div>
-      <div>Error: {hasError || "null"}</div>
-
-      <div>Enter your name:</div>
-      <input onChange={(e) => handleFieldChange("your-name", e)} type="text" />
-      <div>Enter your email:</div>
-      <input onChange={(e) => handleFieldChange("your-email", e)} type="text" />
       
-      <input type="submit" value="Send" />
+
+      <div className="form-fields row d-flex">
+      <div className="form-field col">
+        <div className="form-field-wrap">
+          <input onChange={(e) => handleFieldChange("your-name", e)} type="text" placeholder="Name"/>
+        </div>
+      </div>
+      <div className="form-field col col-6 pr-1">
+        <div className="form-field-wrap">
+          <input onChange={(e) => handleFieldChange("your-email", e)} type="text" placeholder="Email"/>
+        </div>
+      </div>
+      <div className="form-field col col-6 pl-1">
+        <div className="form-field-wrap">
+          <input onChange={(e) => handleFieldChange("phone", e)} type="tel" placeholder="Phone"/>
+        </div>
+      </div>
+      <div className="form-field col">
+        <div className="form-field-wrap">
+          <input onChange={(e) => handleFieldChange("your-subject", e)} type="text" placeholder="Subject"/>
+        </div>
+      </div>
+      <div className="form-field col col-9 pr-1">
+        <div className="form-field-wrap mb-0">
+          <textarea onChange={(e) => handleFieldChange("your-message", e)} placeholder="Comment"/>
+        </div>
+      </div>
+      <div className="form-field col col-3 pl-1">
+        <div className="form-field-wrap mb-0 h-100">
+          <button type="submit" className="btn btn-primary form-submit-button"><i className="far fa-envelope"></i></button>
+          {/* <input type="submit" value="Send" /> */}
+        </div>
+      </div>          
+      </div>
+      <div className="form-status">
+      {isLoading ? ( <div>{isLoading ? "Loading" : "false"}</div>): ""}
+      {isSent ? ( <div className="success form-status-info">{isSent ? "Sent" : "false"}</div>):""}
+      {hasError ? (<div className="alert form-status-info">{hasError || "null"}</div>) :""}
+      </div>
     </form>
   )
 }
@@ -254,7 +284,8 @@ function ContactSection({ QueryData }: Props): JSX.Element{
                     </div>
                 </div>
               <div className={`${styles.ContactInfoCol} col`}>
-                  <div className="contactForm">
+                  <div className={styles.contactForm}>
+                  <h3>Get in touch with us</h3>
                   {/*<form method="post" action="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455/feedback" onSubmit={formSubmissionHandler}>
 						<div className="alert alert-success d-none" role="alert">
 							Your enquiry has been received at Myriad Solutionz. We will get back to you with 2 business days. Thank you!
@@ -285,7 +316,7 @@ function ContactSection({ QueryData }: Props): JSX.Element{
 							</div>
 						</div>
 					</form>*/}
-          <Cf7FormWrapper url="https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455/feedback">
+          <Cf7FormWrapper url="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455/feedback">
             <Form handler={undefined} isLoading={false} isSent={false} hasError={false} />
           </Cf7FormWrapper>
                   </div>
