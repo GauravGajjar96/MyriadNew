@@ -205,7 +205,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
               <div className="modal-body">
                 <h3 className="mb-4">Apply Now</h3>
             
-                <Cf7FormWrapper url="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
+                <Cf7FormWrapper url="https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
                     <Form handler={undefined} isLoading={false} isSent={false} hasError={false} />
                   </Cf7FormWrapper>
               </div>
