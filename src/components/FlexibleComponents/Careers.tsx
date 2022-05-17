@@ -22,9 +22,16 @@ interface Form{
   isSent:Boolean;
   hasError: any;
 }
+interface handleFileInput{
+  onFileSelectError : any;
+  onFileSelectSuccess :any;
+}
+
 
 const Form = function Form({ handler, isLoading, isSent, hasError }) {
   const [formState, setFormState] = useState({})
+  const [selectedFile, setSelectedFile] = useState(null);
+  
 
   const handleFieldChange = (field, e) => {
     setFormState({
@@ -33,9 +40,16 @@ const Form = function Form({ handler, isLoading, isSent, hasError }) {
     })
   }
 
+  const handleFileChange = (field, e) => {
+    setFormState({
+      ...formState,
+      [field]: e.target.files[0],
+    })
+  }
   const handleFormSubmit = (e) => {
     handler(e, formState)
   }
+
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -67,11 +81,19 @@ const Form = function Form({ handler, isLoading, isSent, hasError }) {
           </select>
         </div>
       </div>
-      <div className="form-field col">
+      {/* <div className="form-field col">
         <div className="form-field-wrap file-input">
-          <input type="file" onChange={(e) => handleFieldChange("file-input", e)}  className="wpcf7-form-control wpcf7-file outline-style" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.ppt,.pptx,.odt,.avi,.ogg,.m4a,.mov,.mp3,.mp4,.mpg,.wav,.wmv" aria-invalid="false"></input>
+          <input type="file" onChange={(e) => handleFieldChange("file-input", e)} className="wpcf7-form-control wpcf7-file outline-style" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.ppt,.pptx,.odt,.avi,.ogg,.m4a,.mov,.mp3,.mp4,.mpg,.wav,.wmv" aria-invalid="false"></input>
         </div>
-      </div>
+      </div> */}
+      {/* <FileUploaded
+          onFileSelectSuccess={(file) => setSelectedFile(file)}
+          onFileSelectError={({ error }) => alert(error)}
+        /> */}
+        <div className="form-field col">
+        <div className="form-field-wrap file-input">
+      <input name="file" type="file" onChange={(e)=> handleFileChange('fileinput',e)} className="wpcf7-form-control wpcf7-file outline-style" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.ppt,.pptx,.odt,.avi,.ogg,.m4a,.mov,.mp3,.mp4,.mpg,.wav,.wmv" aria-invalid="false"/>
+      </div></div>
       <div className="form-field col">
         <div className="form-field-wrap">
           <textarea onChange={(e) => handleFieldChange("your-message", e)} placeholder="Comment" className="outline-style" rows={5}/>
@@ -131,7 +153,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
                 const positionTitle = item?.positionTitle;
                 const positionContent = item?.positionDescription;
                 return (
-                    <AccordionItem key={item.uuid} className={`${styles.positionbox}`} onChange={() => toggleAccordion()}>
+                    <AccordionItem key={item.uuid} className={`${styles.positionbox}`}>
                         <AccordionItemHeading className={styles.positionHeader}>
                             <AccordionItemButton>
                               <>
@@ -183,7 +205,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
               <div className="modal-body">
                 <h3 className="mb-4">Apply Now</h3>
             
-                <Cf7FormWrapper url="https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
+                <Cf7FormWrapper url="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
                     <Form handler={undefined} isLoading={false} isSent={false} hasError={false} />
                   </Cf7FormWrapper>
               </div>
@@ -196,3 +218,5 @@ function CareersSection({ QueryData }: Props): JSX.Element {
 }
 
 export default CareersSection;
+
+
