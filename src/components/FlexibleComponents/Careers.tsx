@@ -92,7 +92,7 @@ const Form = function Form({ handler, isLoading, isSent, hasError }) {
         /> */}
         <div className="form-field col">
         <div className="form-field-wrap file-input">
-      <input name="file" type="file" onChange={(e)=> handleFileChange('fileinput',e)} className="wpcf7-form-control wpcf7-file outline-style" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.ppt,.pptx,.odt,.avi,.ogg,.m4a,.mov,.mp3,.mp4,.mpg,.wav,.wmv" aria-invalid="false"/>
+      <input name="file" type="file" onChange={(e)=> handleFileChange("file-input",e)} className="wpcf7-form-control wpcf7-file outline-style" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.ppt,.pptx,.odt,.avi,.ogg,.m4a,.mov,.mp3,.mp4,.mpg,.wav,.wmv" aria-invalid="false"/>
       </div></div>
       <div className="form-field col">
         <div className="form-field-wrap">
