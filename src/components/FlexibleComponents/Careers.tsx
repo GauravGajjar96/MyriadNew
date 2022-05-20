@@ -142,7 +142,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
 
   useEffect(() => {
     
-    fetch('http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459',{
+    fetch('https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459',{
       method:"GET",
     })
       .then((res) => res.json())
