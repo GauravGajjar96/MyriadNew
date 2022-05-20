@@ -70,7 +70,7 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
     <div className="form-fields row d-flex careers-form">
       {inputData.properties.form.fields.map((item,index) => {
       const inputName = item?.name;
-      const inputType = item?.type;
+      const inputType = item?.basetype;
       const labels = item?.labels;
       // console.log(inputName);
       return(
