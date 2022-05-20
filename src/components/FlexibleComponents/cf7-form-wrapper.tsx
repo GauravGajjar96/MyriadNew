@@ -79,7 +79,6 @@ const Cf7FormWrapper = ({ children, url }) => {
       .then((resp) => {
         if (!resp.isSuccess) throw resp.message
         setSent(true);
-        e.preventDefault();
         e.target.reset();
       })
       .catch((validationError) => {
