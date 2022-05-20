@@ -45,7 +45,7 @@ const normalizeContactForm7Response = (response) => {
       : Object.fromEntries(
             response.invalid_fields.map((error) => {
                 const key = /cf7[-a-z]*.(.*)/.exec(error.into)[1];
-              console.log(key);
+              console.log(error.message);
                 return [key, error.message];
             })
         );
