@@ -78,7 +78,7 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
         <div className="form-field-wrap">
           <span className={`wpcf7-form-control-wrap ${inputName}`}>
            
-            {Error.message}
+            {validationError}
             {inputType == "select" ? (
               <select onChange={(e) => handleFieldChange(inputName, e)} name={inputName} placeholder={labels[0]} className="outline-style">
                 {
