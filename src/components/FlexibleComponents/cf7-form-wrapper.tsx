@@ -63,7 +63,7 @@ const Cf7FormWrapper = ({ children, url }) => {
   const [hasError, setError] = useState(null)
 
   const apiUrl = url;
-
+  console.log(hasError);
   const formSubmitHandler = (event, payload) => {
     event.preventDefault()
 
