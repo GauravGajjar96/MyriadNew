@@ -1,5 +1,5 @@
 import Heading from "components/Heading";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "scss/components/FlexibleComponentStyles/CareersSection.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +21,7 @@ interface Form{
   isLoading: Boolean;
   isSent:Boolean;
   hasError: any;
+  inputData:any;
 }
 interface handleFileInput{
   onFileSelectError : any;
@@ -28,12 +29,23 @@ interface handleFileInput{
 }
 
 
-const Form = function Form({ handler, isLoading, isSent, hasError }) {
+export const Form = function Form({ handler, isLoading, isSent, hasError,inputData }) {
   const [formState, setFormState] = useState({})
   const [selectedFile, setSelectedFile] = useState(null);
   
+  
+//   const FieldData = (item,key) => {
+//    const {name,type,placeholder,value} = item;
+//     const inputName = name;
+//       const inputType = type;  
+//       const placeh = placeholder;
+//       const val = value;
+//       console.log(inputName,inputType,placeh,val,key);
+//     return ( (inputType == "textarea" ? (<textarea name={inputName} onChange={(e) => handleFieldChange(inputName, e)} className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"/>) : inputType == "submit" ? (<button type="submit" className="commonButton commonButtonOutlined form-submit-button">{item.values}</button>) : (<input onChange={(e) => handleFieldChange({inputName}, e)} type={`${inputType}`} placeholder={`${item.labels}`} className="outline-style"/>)))
+//  }
 
   const handleFieldChange = (field, e) => {
+  console.log(formState[field]);
     setFormState({
       ...formState,
       [field]: e.target.value,
@@ -49,69 +61,54 @@ const Form = function Form({ handler, isLoading, isSent, hasError }) {
   const handleFormSubmit = (e) => {
     handler(e, formState)
   }
-
+  
 
   return (
+<>
     <form onSubmit={handleFormSubmit}>
-      
 
-      <div className="form-fields row d-flex careers-form">
+    <div className="form-fields row d-flex careers-form">
+      {inputData.properties.form.fields.map((item,index) => {
+      const inputName = item?.name;
+      const inputType = item?.type;
+      const labels = item?.labels;
+      // console.log(inputName);
+      return(
       <div className="form-field col">
         <div className="form-field-wrap">
-          <input onChange={(e) => handleFieldChange("your-name", e)} type="text" placeholder="Name" className="outline-style"/>
+          <span className={`wpcf7-form-control-wrap ${inputName}`}>
+          
+            {inputType == "select" ? (
+              <select onChange={(e) => handleFieldChange(inputName, e)} name={inputName} placeholder={labels[0]} className="outline-style">
+                {
+                  labels.map((lbl,vl)=>(
+                    <option value={vl}>{lbl}</option>
+                  ))
+                }
+            </select>
+            ) : inputType == "file" ? (
+              <input type={`${inputType}`} name={inputName} onChange={(e) => handleFileChange(inputName, e)} placeholder={`${item.labels}`} className="wpcf7-form-control wpcf7-text"/>
+            ) : inputType == "textarea" ? (
+            <textarea name={inputName} onChange={(e) => handleFieldChange(inputName, e)} placeholder={`${item.labels}`} className="wpcf7-form-control wpcf7-text"/>
+            ) : inputType == "submit" ? (
+            <button type="submit" className="commonButton commonButtonOutlined form-submit-button">{item.values}</button>
+            ) : (
+            <input onChange={(e) => handleFieldChange(inputName, e)}  value={formState[inputName]} name={inputName} type={`${inputType}`} placeholder={`${item.labels}`} className="outline-style"/>
+            )
+            }
+          </span>
         </div>
       </div>
-      <div className="form-field col col-6 pr-1">
-        <div className="form-field-wrap">
-          <input onChange={(e) => handleFieldChange("your-email", e)} type="text" placeholder="Email" className="outline-style"/>
-        </div>
-      </div>
-      <div className="form-field col col-6 pl-1">
-        <div className="form-field-wrap">
-          <input onChange={(e) => handleFieldChange("phone", e)} type="tel" placeholder="Phone" className="outline-style"/>
-        </div>
-      </div>
-      <div className="form-field col">
-        <div className="form-field-wrap">
-          <select onChange={(e) => handleFieldChange("select-position", e)} placeholder="Subject" className="outline-style">
-            <option value="Mobile App Developer (Flutter)">Mobile App Developer (Flutter)</option>
-            <option value="Php Developer">Php Developer</option>
-            <option value="Jr. SEO Executive">Jr. SEO Executive</option>
-            <option value="Business Development Executive">Business Development Executive</option>
-          </select>
-        </div>
-      </div>
-      {/* <div className="form-field col">
-        <div className="form-field-wrap file-input">
-          <input type="file" onChange={(e) => handleFieldChange("file-input", e)} className="wpcf7-form-control wpcf7-file outline-style" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.ppt,.pptx,.odt,.avi,.ogg,.m4a,.mov,.mp3,.mp4,.mpg,.wav,.wmv" aria-invalid="false"></input>
-        </div>
-      </div> */}
-      {/* <FileUploaded
-          onFileSelectSuccess={(file) => setSelectedFile(file)}
-          onFileSelectError={({ error }) => alert(error)}
-        /> */}
-        <div className="form-field col">
-        <div className="form-field-wrap file-input">
-      <input name="file" type="file" onChange={(e)=> handleFileChange("file-input",e)} className="wpcf7-form-control wpcf7-file outline-style" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.ppt,.pptx,.odt,.avi,.ogg,.m4a,.mov,.mp3,.mp4,.mpg,.wav,.wmv" aria-invalid="false"/>
-      </div></div>
-      <div className="form-field col">
-        <div className="form-field-wrap">
-          <textarea onChange={(e) => handleFieldChange("your-message", e)} placeholder="Comment" className="outline-style" rows={5}/>
-        </div>
-      </div>
-      <div className="form-field col">
-        <div className="form-field-wrap mb-0 h-100">
-          <button type="submit" className="commonButton commonButtonOutlined form-submit-button">Apply Now</button>
-          {/* <input type="submit" value="Send" /> */}
-        </div>
-      </div>          
-      </div>
-      <div className="form-status">
+      )})}
+    </div>
+    <div className="form-status">
       {isLoading ? ( <div>{isLoading ? "Loading" : "false"}</div>): ""}
       {isSent ? ( <div className="success form-status-info">{isSent ? "Sent" : "false"}</div>):""}
       {hasError ? (<div className="alert form-status-info">{hasError || "null"}</div>) :""}
       </div>
     </form>
+
+    </>
   )
 }
 
@@ -124,6 +121,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
   const [setActive, setActiveState] = useState("");
   const [setHeight, setHeightState] = useState("0px");
   const content = useRef(null);
+  const [formInput,setFormInputs] = useState({});
   function toggleAccordion() {
     setHeightState(
       setActive === "active" ? "0px" : `${content.current.scrollHeight}px`
@@ -142,18 +140,28 @@ function CareersSection({ QueryData }: Props): JSX.Element {
     document.body.classList.remove('modal-open');
   }
 
+  useEffect(() => {
+    
+    fetch('http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459',{
+      method:"GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFormInputs(data)})
+  }, [])
+  // console.log(formInput);
 
   return (
     <>
       <section className="careers_section commonPadding">
         <div className="container">
           {positions ? (
-            <Accordion className={`${styles.positionslist} d-flex justify-space`} >
+            <Accordion className={`${styles.positionslist} d-flex justify-space`} key="accordian_1">
               {positions.map((item, index) => {
                 const positionTitle = item?.positionTitle;
                 const positionContent = item?.positionDescription;
                 return (
-                    <AccordionItem key={item.uuid} className={`${styles.positionbox}`}>
+                    <AccordionItem key={index} className={`${styles.positionbox}`} id={`my-id-${index}`}>
                         <AccordionItemHeading className={styles.positionHeader}>
                             <AccordionItemButton>
                               <>
@@ -205,8 +213,8 @@ function CareersSection({ QueryData }: Props): JSX.Element {
               <div className="modal-body">
                 <h3 className="mb-4">Apply Now</h3>
             
-                <Cf7FormWrapper url="https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
-                    <Form handler={undefined} isLoading={false} isSent={false} hasError={false} />
+                <Cf7FormWrapper url="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
+                    <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput}/>
                   </Cf7FormWrapper>
               </div>
             </div> 

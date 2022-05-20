@@ -23,6 +23,39 @@ const ErrorMessage = () => {
     </div>
   )
 }
+const normalizeResponse = (url, response) => {
+  if (
+      url.match(/wp-json\/contact-form-7\/v1\/contact-forms\/\d+\/feedback/)
+  ) {
+    console.log(response)
+      return normalizeContactForm7Response(response);
+  }
+
+  return {
+      isSuccess: false,
+      message: "Are you submitting to the right URL?",
+      validationError: {}
+  };
+};
+const normalizeContactForm7Response = (response) => {
+  const isSuccess = response.status === "mail_sent";
+  const message = response.message;
+  const validationError = isSuccess
+      ? {}
+      : Object.fromEntries(
+            response.invalid_fields.map((error) => {
+                const key = /cf7[-a-z]*.(.*)/.exec(error.into)[1];
+
+                return [key, error.message];
+            })
+        );
+
+  return {
+      isSuccess,
+      message,
+      validationError
+  };
+};
 
 const Cf7FormWrapper = ({ children, url }) => {
   const [isSent, setSent] = useState(false)
@@ -42,15 +75,18 @@ const Cf7FormWrapper = ({ children, url }) => {
       body: jsonToFormData(payload),
     })
       .then((resp) => resp.json())
+      .then((response) => normalizeResponse(apiUrl, response))
       .then((resp) => {
-        if (resp.status !== "mail_sent") throw resp.message
-        setSent(true)
+        if (!resp.isSuccess) throw resp.message
+        setSent(true);
+        event.target.reset();
       })
-      .catch((error) => {
-        setError(error)
+      .catch((validationError) => {
+        setError(validationError)
       })
       .finally(() => {
-        setLoading(false)
+        setLoading(false);
+       
       })
   }
 
