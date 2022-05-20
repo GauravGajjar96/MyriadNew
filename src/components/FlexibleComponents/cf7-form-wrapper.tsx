@@ -82,8 +82,8 @@ const Cf7FormWrapper = ({ children, url }) => {
         event.target.reset();
       })
       .catch((validationError) => {
-        setError(validationError);
-      console.log(validationError);
+        setError(resp.validationError);
+      console.log(resp.validationError);
       })
       .finally(() => {
         setLoading(false);
