@@ -21,7 +21,7 @@ function InnerBanner({ QueryData }: Props): JSX.Element {
 
   const Width = QueryData?.image?.mediaDetails?.width;
   const height = QueryData?.image?.mediaDetails?.height;
-
+  const overlayGrad = QueryData?.overlayColor;
   return (
     <section className={styles.innerBanner}>
       <div
@@ -30,7 +30,7 @@ function InnerBanner({ QueryData }: Props): JSX.Element {
           backgroundImage: `url(${MainImage})`,
         }}
       >
-        <div className={styles.overlay}></div>
+        <div className={styles.overlay} style={{"--overlay-grad": overlayGrad ? overlayGrad : "to right, #6a11cb 0%, #2575fc 100%"} as React.CSSProperties}></div>
 
         <div className="container">
           <div className={styles.bannerinfoinner}>

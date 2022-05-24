@@ -23,16 +23,11 @@ interface Form{
   hasError: any;
   inputData:any;
 }
-interface handleFileInput{
-  onFileSelectError : any;
-  onFileSelectSuccess :any;
-}
 
 
-export const Form = function Form({ handler, isLoading, isSent, hasError,inputData }) {
+export const Form = function Form({ handler, isLoading, isSent, hasError,inputData,fieldError }) {
   const [formState, setFormState] = useState({})
-  const [selectedFile, setSelectedFile] = useState(null);
-  
+
   
 //   const FieldData = (item,key) => {
 //    const {name,type,placeholder,value} = item;
@@ -45,7 +40,7 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
 //  }
 
   const handleFieldChange = (field, e) => {
-  console.log(formState[field]);
+  // console.log(formState[field]);
     setFormState({
       ...formState,
       [field]: e.target.value,
@@ -70,14 +65,14 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
     <div className="form-fields row d-flex careers-form">
       {inputData.properties.form.fields.map((item,index) => {
       const inputName = item?.name;
-      const inputType = item?.basetype;
+      const inputType = item?.type;
       const labels = item?.labels;
-      // console.log(inputName);
+      // console.log(item);
       return(
       <div className="form-field col">
         <div className="form-field-wrap">
           <span className={`wpcf7-form-control-wrap ${inputName}`}>
-           
+          
             {inputType == "select" ? (
               <select onChange={(e) => handleFieldChange(inputName, e)} name={inputName} placeholder={labels[0]} className="outline-style">
                 {
@@ -93,9 +88,14 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
             ) : inputType == "submit" ? (
             <button type="submit" className="commonButton commonButtonOutlined form-submit-button">{item.values}</button>
             ) : (
+            <>
             <input onChange={(e) => handleFieldChange(inputName, e)}  value={formState[inputName]} name={inputName} type={`${inputType}`} placeholder={`${item.labels}`} className="outline-style"/>
+            </>
             )
             }
+            {fieldError.map((item,index)=> 
+              (<span className="requiredError">{item[inputName]}</span>)
+            )}
           </span>
         </div>
       </div>
@@ -105,6 +105,7 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
       {isLoading ? ( <div>{isLoading ? "Loading" : "false"}</div>): ""}
       {isSent ? ( <div className="success form-status-info">{isSent ? "Sent" : "false"}</div>):""}
       {hasError ? (<div className="alert form-status-info">{hasError || "null"}</div>) :""}
+      
       </div>
     </form>
 
@@ -142,7 +143,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
 
   useEffect(() => {
     
-    fetch('https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459',{
+    fetch('http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459',{
       method:"GET",
     })
       .then((res) => res.json())
@@ -213,8 +214,8 @@ function CareersSection({ QueryData }: Props): JSX.Element {
               <div className="modal-body">
                 <h3 className="mb-4">Apply Now</h3>
             
-                <Cf7FormWrapper url="https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
-                    <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput}/>
+                <Cf7FormWrapper url="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
+                    <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput} fieldError={[]}/>
                   </Cf7FormWrapper>
               </div>
             </div> 

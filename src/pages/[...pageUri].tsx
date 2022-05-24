@@ -10,7 +10,7 @@ import {
   PortfolioSection,
   WeOfferSection,
   SolutionServices,
-  AboutInfo,ChooseUs,ServicesBanner,ContentWithSidebar,FullWidthCTA,CareersSection,ContactSection
+  AboutInfo,ChooseUs,ServicesBanner,ContentWithSidebar,FullWidthCTA,CareersSection,ContactSection,ContentWithImage,RelatedProjects
 } from "components";
 import { GetStaticPropsContext } from "next";
 import Head from "next/head";
@@ -50,7 +50,7 @@ export function PageComponent({ page }: PageProps) {
           var ComponentsName = Layout.__typename;
           var ComponentsData = Layout.$on[ComponentsName];
 
-
+            console.log(ComponentsName);
           return (
             <div key={index}>
               {ComponentsName ==
@@ -138,6 +138,18 @@ export function PageComponent({ page }: PageProps) {
               ) : (
                 ""
               )}
+              {ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithImage" ? (
+                <ContentWithImage QueryData={ComponentsData} />
+              ) : (
+                ""
+              )}
+              {ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_RelatedProjects" ? (
+                <RelatedProjects QueryData={ComponentsData} />
+              ) : (
+                ""
+              )}
               
             </div>
           );
@@ -161,6 +173,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     Page,
     client,
     notFound: await is404(context, { client }),
+    revalidate: 10,
   });
 }
 

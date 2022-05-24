@@ -18,6 +18,8 @@ import ContentWithSidebar from "./FlexibleComponents/ContentWithSidebar";
 import FullWidthCTA from "./FlexibleComponents/FullWidthCTA";
 import CareersSection from "./FlexibleComponents/Careers";
 import ContactSection from "./FlexibleComponents/ContactSection";
+import ContentWithImage from "./FlexibleComponents/ContentWithImage";
+import RelatedProjects from "./FlexibleComponents/RelatedProjects";
 
 export {
   CTA,
@@ -35,5 +37,5 @@ export {
   InnerBanner,
   AboutInfo,
   ChooseUs,
-  ServicesBanner,ContentWithSidebar,FullWidthCTA,CareersSection,ContactSection
+  ServicesBanner,ContentWithSidebar,FullWidthCTA,CareersSection,ContactSection,ContentWithImage,RelatedProjects
 };

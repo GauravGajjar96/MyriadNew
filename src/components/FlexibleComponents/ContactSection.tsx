@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { client } from "client";
 import Cf7FormWrapper from "./cf7-form-wrapper";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   QueryData: any;
@@ -15,9 +15,10 @@ interface Form{
   isLoading: Boolean;
   isSent:Boolean;
   hasError: any;
+  inputData:any;
 }
 
-const Form = function Form({ handler, isLoading, isSent, hasError }) {
+const Form = function Form({ handler, isLoading, isSent, hasError,inputData,fieldError }) {
   const [formState, setFormState] = useState({})
 
   const handleFieldChange = (field, e) => {
@@ -26,7 +27,12 @@ const Form = function Form({ handler, isLoading, isSent, hasError }) {
       [field]: e.target.value,
     })
   }
-
+  const handleFileChange = (field, e) => {
+    setFormState({
+      ...formState,
+      [field]: e.target.files[0],
+    })
+  }
   const handleFormSubmit = (e) => {
     handler(e, formState)
   }
@@ -35,43 +41,50 @@ const Form = function Form({ handler, isLoading, isSent, hasError }) {
     <form onSubmit={handleFormSubmit}>
       
 
-      <div className="form-fields row d-flex">
-      <div className="form-field col">
+      <div className="form-fields row d-flex contact-form">
+      {inputData?.properties?.form?.fields.map((item,index) => {
+      const inputName = item?.name;
+      const inputType = item?.type;
+      const labels = item?.labels;
+      // console.log(item);
+      return(
+      <div className="form-field col" key={index}>
         <div className="form-field-wrap">
-          <input onChange={(e) => handleFieldChange("your-name", e)} type="text" placeholder="Name"/>
+          <span className={`wpcf7-form-control-wrap ${inputName}`}>
+          
+            {inputType == "select" ? (
+              <select onChange={(e) => handleFieldChange(inputName, e)} name={inputName} placeholder={labels[0]} className="outline-style">
+                {
+                  labels.map((lbl,vl)=>(
+                    <option value={vl}>{lbl}</option>
+                  ))
+                }
+            </select>
+            ) : inputType == "file" ? (
+              <input type={`${inputType}`} name={inputName} onChange={(e) => handleFileChange(inputName, e)} placeholder={`${item.labels}`} className="wpcf7-form-control wpcf7-text"/>
+            ) : inputType == "textarea" ? (
+            <textarea name={inputName} onChange={(e) => handleFieldChange(inputName, e)} placeholder={`${item.labels}`} className="wpcf7-form-control wpcf7-text"/>
+            ) : inputType == "submit" ? (
+            <button type="submit" className="commonButton commonButtonOutlined form-submit-button">{item.values}</button>
+            ) : (
+            <>
+            <input onChange={(e) => handleFieldChange(inputName, e)}  value={formState[inputName]} name={inputName} type={`${inputType}`} placeholder={`${item.labels}`} className="outline-style"/>
+            </>
+            )
+            }
+            {fieldError.map((item,index)=> 
+              (<span className="requiredError">{item[inputName]}</span>)
+            )}
+          </span>
         </div>
       </div>
-      <div className="form-field col col-6 pr-1">
-        <div className="form-field-wrap">
-          <input onChange={(e) => handleFieldChange("your-email", e)} type="text" placeholder="Email"/>
-        </div>
-      </div>
-      <div className="form-field col col-6 pl-1">
-        <div className="form-field-wrap">
-          <input onChange={(e) => handleFieldChange("phone", e)} type="tel" placeholder="Phone"/>
-        </div>
-      </div>
-      <div className="form-field col">
-        <div className="form-field-wrap">
-          <input onChange={(e) => handleFieldChange("your-subject", e)} type="text" placeholder="Subject"/>
-        </div>
-      </div>
-      <div className="form-field col col-9 pr-1">
-        <div className="form-field-wrap mb-0">
-          <textarea onChange={(e) => handleFieldChange("your-message", e)} placeholder="Comment"/>
-        </div>
-      </div>
-      <div className="form-field col col-3 pl-1">
-        <div className="form-field-wrap mb-0 h-100">
-          <button type="submit" className="btn btn-primary form-submit-button"><i className="far fa-envelope"></i></button>
-          {/* <input type="submit" value="Send" /> */}
-        </div>
-      </div>          
-      </div>
+      )})}
+    </div>
       <div className="form-status">
       {isLoading ? ( <div>{isLoading ? "Loading" : "false"}</div>): ""}
       {isSent ? ( <div className="success form-status-info">{isSent ? "Sent" : "false"}</div>):""}
       {hasError ? (<div className="alert form-status-info">{hasError || "null"}</div>) :""}
+      
       </div>
     </form>
   )
@@ -235,7 +248,16 @@ function ContactSection({ QueryData }: Props): JSX.Element{
   const phone1 = useQuery().themeGeneralSettings?.generalThemeSettings?.phone1;
   const phone2 = useQuery().themeGeneralSettings?.generalThemeSettings?.phone2;
   const socialMediaList = useQuery().themeGeneralSettings?.generalThemeSettings?.socialMediaList;
-
+  const [formInput,setFormInputs] = useState({});
+  useEffect(() => {
+    
+    fetch(process.env.NEXT_PUBLIC_WORDPRESS_url + '/wp-json/contact-form-7/v1/contact-forms/455',{
+      method:"GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFormInputs(data)})
+  }, [])
   return (
     <section className={styles.contactsection} style={{
         backgroundImage: `url(${MainImage})`
@@ -316,8 +338,8 @@ function ContactSection({ QueryData }: Props): JSX.Element{
 							</div>
 						</div>
 					</form>*/}
-          <Cf7FormWrapper url="https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455/feedback">
-            <Form handler={undefined} isLoading={false} isSent={false} hasError={false} />
+          <Cf7FormWrapper url={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/455/feedback`}>
+            <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput} fieldError={[]}/>
           </Cf7FormWrapper>
                   </div>
               </div>

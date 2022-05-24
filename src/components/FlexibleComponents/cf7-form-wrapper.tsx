@@ -45,11 +45,11 @@ const normalizeContactForm7Response = (response) => {
       : Object.fromEntries(
             response.invalid_fields.map((error) => {
                 const key = /cf7[-a-z]*.(.*)/.exec(error.into)[1];
-               
+
                 return [key, error.message];
             })
         );
-   console.log(validationError);
+console.log(validationError);
   return {
       isSuccess,
       message,
@@ -61,9 +61,9 @@ const Cf7FormWrapper = ({ children, url }) => {
   const [isSent, setSent] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [hasError, setError] = useState(null)
-
+  const [fieldError,setFieldError] = useState([]);
   const apiUrl = url;
-  
+
   const formSubmitHandler = (event, payload) => {
     event.preventDefault()
 
@@ -77,17 +77,19 @@ const Cf7FormWrapper = ({ children, url }) => {
       .then((resp) => resp.json())
       .then((response) => normalizeResponse(apiUrl, response))
       .then((resp) => {
-        if (!resp.isSuccess) throw resp.message
+        if (!resp.isSuccess) {
+          setFieldError([resp.validationError]);
+          throw resp.message
+        }
         setSent(true);
         event.target.reset();
       })
-      .catch((resp.validationError) => {
-        setError(resp.validationError);
-      console.log(resp.validationError);
+      .catch((err) => {
+        console.log(err);
+        setError(err);
       })
       .finally(() => {
         setLoading(false);
-        console.log(hasError);
        
       })
   }
@@ -97,6 +99,7 @@ const Cf7FormWrapper = ({ children, url }) => {
     isLoading,
     isSent,
     hasError,
+    fieldError
   })
 
   return <div>{url ? Form : <ErrorMessage />}</div>

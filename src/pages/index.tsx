@@ -16,7 +16,7 @@ import {
   SolutionServices,
   PortfolioSection,
   ExpertiseSection,
-  AboutInfo,ChooseUs,ServicesBanner,ContentWithSidebar,FullWidthCTA,CareersSection,ContactSection
+  AboutInfo,ChooseUs,ServicesBanner,ContentWithSidebar,FullWidthCTA,CareersSection,ContactSection,ContentWithImage,RelatedProjects
 } from "components";
 import styles from "scss/pages/home.module.scss";
 import { client, PageIdType, PortfolioIdType } from "client";
@@ -134,6 +134,18 @@ export default function Page() {
               {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ContactSection" ? (
                 <ContactSection QueryData={ComponentsData} />
+              ) : (
+                ""
+              )}
+              {ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithImage" ? (
+                <ContentWithImage QueryData={ComponentsData} />
+              ) : (
+                ""
+              )}
+              {ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_RelatedProjects" ? (
+                <RelatedProjects QueryData={ComponentsData} />
               ) : (
                 ""
               )}
