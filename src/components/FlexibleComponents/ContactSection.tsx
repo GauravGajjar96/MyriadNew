@@ -338,7 +338,7 @@ function ContactSection({ QueryData }: Props): JSX.Element{
 							</div>
 						</div>
 					</form>*/}
-          <Cf7FormWrapper url={`${NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/455/feedback`}>
+          <Cf7FormWrapper url={`https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455/feedback`}>
             <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput} fieldError={[]}/>
           </Cf7FormWrapper>
                   </div>
