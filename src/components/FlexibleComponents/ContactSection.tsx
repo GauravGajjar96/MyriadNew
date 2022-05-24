@@ -251,7 +251,7 @@ function ContactSection({ QueryData }: Props): JSX.Element{
   const [formInput,setFormInputs] = useState({});
   useEffect(() => {
     
-    fetch(NEXT_PUBLIC_WORDPRESS_URL + '/wp-json/contact-form-7/v1/contact-forms/455',{
+    fetch('https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455',{
       method:"GET",
     })
       .then((res) => res.json())
