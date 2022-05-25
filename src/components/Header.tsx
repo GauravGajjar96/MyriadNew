@@ -115,6 +115,10 @@ function Header({
   description,
 }: Props): JSX.Element {
   const { menuItems } = client.useQuery();
+  const logo = useQuery().themeGeneralSettings?.generalThemeSettings?.logo.sourceUrl();
+  const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
+  const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
+  const freeReportFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.freeReportFormId;
   const links = menuItems({
     first:20,
     where: { location: MenuLocationEnum.PRIMARY },
@@ -167,10 +171,7 @@ function Header({
         setFormInputs(data)})
   }, [])
   const { useQuery } = client;
-  const logo = useQuery().themeGeneralSettings?.generalThemeSettings?.logo.sourceUrl();
-  const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
-  const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
-  const freeReportFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.freeReportFormId;
+  
   const [stickyClass, setStickyClass] = useState('relative');
 
   useEffect(() => {
@@ -197,7 +198,7 @@ function Header({
             <p className={styles["site-title"]}>
               <Link href="/">
                 <a>
-                {Width ? (
+                {logo ? (
                   <Image
                     src={logo}
                     alt={useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.title()}
