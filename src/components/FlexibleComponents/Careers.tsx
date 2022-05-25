@@ -220,7 +220,7 @@ function CareersSection({ QueryData, CareerForm }: Props): JSX.Element {
               <div className="modal-body">
                 <h3 className="mb-4">Apply Now</h3>
             
-                <Cf7FormWrapper url={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${careersFormId}/feedback`}>
+                <Cf7FormWrapper url={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${CareerForm}/feedback`}>
                     <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput} fieldError={[]}/>
                   </Cf7FormWrapper>
               </div>
