@@ -23,6 +23,7 @@ export interface PageProps {
 export function PageComponent({ page }: PageProps) {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
+  const CareerFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
 
   const { usePage } = client;
   const LayoutOptions = usePage().fieldLayoutOptions.flexibleLayouts;
@@ -128,7 +129,7 @@ export function PageComponent({ page }: PageProps) {
             
               {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_CareersSection" ? (
-                <CareersSection QueryData={ComponentsData} />
+                <CareersSection CareerForm={CareerFormId} QueryData={ComponentsData} />
               ) : (
                 ""
               )}
