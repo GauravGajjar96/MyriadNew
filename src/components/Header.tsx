@@ -115,6 +115,8 @@ function Header({
   description,
 }: Props): JSX.Element {
   const { menuItems } = client.useQuery();
+   const { useQuery } = client;
+  
   const logo = useQuery().themeGeneralSettings?.generalThemeSettings?.logo.sourceUrl();
   const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
   const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
@@ -170,7 +172,7 @@ function Header({
       .then((data) => {
         setFormInputs(data)})
   }, [])
-  const { useQuery } = client;
+ 
   
   const [stickyClass, setStickyClass] = useState('relative');
 
