@@ -11,7 +11,7 @@ module.exports = withFaust({
   },
   trailingSlashes: undefined,
   images: {
-    domains: ["myriadsolutionz.com", "localhost", "http://localhost/myriadsolutionz"],
+    domains: ["myriadsolutionz.com", "localhost", "http://localhost/myriadsolutionz", "https://myriadsolutionz.vercel.app"],
   },
   staticPageGenerationTimeout: 1000,
 });
