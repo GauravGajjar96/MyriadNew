@@ -118,6 +118,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
   
   const { useQuery } = client;
   const careersFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
+  console.log(careersFormId);
   const MainHeading = QueryData?.heading;
   const HeadingTag = QueryData?.headingTag;
   const description = QueryData?.description;
