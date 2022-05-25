@@ -115,6 +115,9 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
 }
 
 function CareersSection({ QueryData }: Props): JSX.Element {
+  
+  const { useQuery } = client;
+  const careersFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
   const MainHeading = QueryData?.heading;
   const HeadingTag = QueryData?.headingTag;
   const description = QueryData?.description;
@@ -152,8 +155,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
         setFormInputs(data)})
   }, [])
   // console.log(formInput);
-  const { useQuery } = client;
-  const careersFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
+  
   return (
     <>
       <section className="careers_section commonPadding">
