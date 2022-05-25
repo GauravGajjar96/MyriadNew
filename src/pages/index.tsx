@@ -24,6 +24,8 @@ import { client, PageIdType, PortfolioIdType } from "client";
 export default function Page() {
   const { usePosts, useQuery, usePage } = client;
   const generalSettings = useQuery().generalSettings;
+  const CareerFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
+  
   const posts = usePosts({
     first: 6,
     where: {
@@ -127,7 +129,7 @@ export default function Page() {
               )}
               {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_CareersSection" ? (
-                <CareersSection QueryData={ComponentsData} />
+                <CareersSection CareerForm={CareerFormId} QueryData={ComponentsData} />
               ) : (
                 ""
               )}
