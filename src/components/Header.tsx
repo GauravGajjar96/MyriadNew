@@ -211,7 +211,7 @@ function Header({
                       loader={LogoImage}
                       src="loader.png"
                       alt="Myriad Solutionz"
-                      layout="responsive"
+                      
                       width={Width}
                       height={height}
                     />
