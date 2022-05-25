@@ -118,6 +118,12 @@ function Header({
    const { useQuery } = client;
   
   const logo = useQuery().themeGeneralSettings?.generalThemeSettings?.logo.sourceUrl();
+  const LogoImage = ({ src, width, quality }) => {
+    return `${String(logo)}?q=${quality || 100}`;
+  };
+  
+  
+  
   const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
   const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
   const freeReportFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.freeReportFormId;
@@ -202,11 +208,13 @@ function Header({
                 <a>
                 {logo ? (
                   <Image
-                    src={logo}
-                    alt={useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.title()}
-                    width={Width}
-                    height={height}
-                  />
+                      loader={LogoImage}
+                      src="loader.png"
+                      alt="Myriad Solutionz"
+                      layout="responsive"
+                      width={Width}
+                      height={height}
+                    />
                 ):""}
                   
                 </a>
