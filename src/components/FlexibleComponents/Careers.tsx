@@ -14,7 +14,8 @@ import {
 import Cf7FormWrapper from "./cf7-form-wrapper";
 
 interface Props {
-  QueryData: any;
+  QueryData: any,
+    CareerForm : any
 }
 
 interface Form{ 
@@ -114,11 +115,11 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
   )
 }
 
-function CareersSection({ QueryData }: Props): JSX.Element {
+function CareersSection({ QueryData, CareerForm }: Props): JSX.Element {
   
   const { useQuery } = client;
-  const careersFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
-  console.log(careersFormId);
+  //const careersFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
+  //console.log(careersFormId);
   const MainHeading = QueryData?.heading;
   const HeadingTag = QueryData?.headingTag;
   const description = QueryData?.description;
@@ -148,7 +149,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
 
   useEffect(() => {
     
-    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${careersFormId}`,{
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${CareerForm}`,{
       method:"GET",
     })
       .then((res) => res.json())
