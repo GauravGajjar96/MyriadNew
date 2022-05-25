@@ -1,13 +1,95 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "scss/components/Footer.module.scss";
 import Image from "next/image";
 import { client, MenuLocationEnum } from "client";
 import Heading from "components/Heading";
 import { useRouter } from "next/router";
+import Cf7FormWrapper from "./FlexibleComponents/cf7-form-wrapper";
 
 interface Props {
   copyrightHolder?: string;
+}
+interface Form{ 
+  handler: any; 
+  isLoading: Boolean;
+  isSent:Boolean;
+  hasError: any;
+  inputData:any;
+}
+export const Form = function Form({ handler, isLoading, isSent, hasError }) {
+  const [formState, setFormState] = useState({})
+
+  
+//   const FieldData = (item,key) => {
+//    const {name,type,placeholder,value} = item;
+//     const inputName = name;
+//       const inputType = type;  
+//       const placeh = placeholder;
+//       const val = value;
+//       console.log(inputName,inputType,placeh,val,key);
+//     return ( (inputType == "textarea" ? (<textarea name={inputName} onChange={(e) => handleFieldChange(inputName, e)} className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"/>) : inputType == "submit" ? (<button type="submit" className="commonButton commonButtonOutlined form-submit-button">{item.values}</button>) : (<input onChange={(e) => handleFieldChange({inputName}, e)} type={`${inputType}`} placeholder={`${item.labels}`} className="outline-style"/>)))
+//  }
+
+  const handleFieldChange = (field, e) => {
+  // console.log(formState[field]);
+    setFormState({
+      ...formState,
+      [field]: e.target.value,
+    })
+  }
+
+  const handleFileChange = (field, e) => {
+    setFormState({
+      ...formState,
+      [field]: e.target.files[0],
+    })
+  }
+  const handleFormSubmit = (e) => {
+    handler(e, formState)
+  }
+  
+
+  return (
+<>
+    <form onSubmit={handleFormSubmit} className={`${styles.websitecheckup} ${styles.siteanalysisreport}`}>
+
+              <div className="pos-rel">
+                <i className="fas fa-globe"></i>
+                <input
+                  className="footer-input"
+                  type="text"
+                  name="website-link"
+                  placeholder="Website URL"
+                  onChange={(e) => handleFieldChange('website-link', e)}
+                />
+              </div>
+              <div className="pos-rel">
+                <i className="fas fa-at"></i>
+                <input
+                  className={`${styles.footerinput} ${styles.lastinput}`}
+                  type="email"
+                  name="your-email"
+                  placeholder="Your Email ID"
+                  onChange={(e) => handleFieldChange('your-email', e)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-default form-submit-button"
+              >
+                <i className="fa fa-long-arrow-alt-right"></i>
+              </button>
+    <div className="form-status">
+      {isLoading ? ( <div>{isLoading ? "Loading" : "false"}</div>): ""}
+      {isSent ? ( <div className="success form-status-info">{isSent ? "Your enquiry has been received at Myriad Solutionz. We will get back to you with 2 business days. Thank you!" : "false"}</div>):""}
+      {hasError ? (<div className="alert form-status-info">Please Try Again.</div>) :""}
+      
+      </div>
+    </form>
+
+    </>
+  )
 }
 
 function Footer({ copyrightHolder = "Company Name" }: Props): JSX.Element {
@@ -27,13 +109,29 @@ function Footer({ copyrightHolder = "Company Name" }: Props): JSX.Element {
   const phone1 = useQuery().themeGeneralSettings?.generalThemeSettings?.phone1;
   const phone2 = useQuery().themeGeneralSettings?.generalThemeSettings?.phone2;
   const socialMediaList = useQuery().themeGeneralSettings?.generalThemeSettings?.socialMediaList;
+  const logo = useQuery().themeGeneralSettings?.generalThemeSettings?.logo.sourceUrl();
+  const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
+  const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
+  const freeReportFooterFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.freeReportFooterFormId;
+  const footerBgImage = useQuery().themeGeneralSettings?.generalThemeSettings?.footerBgImage.sourceUrl();
+
+  const [formInput,setFormInputs] = useState({});
+  useEffect(() => {
+    
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${freeReportFooterFormId}`,{
+      method:"GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFormInputs(data)})
+  }, [])
 
   return (
     <footer
       className={`${styles.main} ${styles.mainfooter} ${router.asPath == "/contact" ? 'd-none' : ""}`}
       style={{
         backgroundImage:
-          "url(https://myriadsolutionz.com/wp-content/uploads/2020/02/footer.webp)",
+          `url(${footerBgImage})`,
       }}
     >
       <div className={`${styles.footerinner} container`}>
@@ -41,12 +139,13 @@ function Footer({ copyrightHolder = "Company Name" }: Props): JSX.Element {
           <div className={`${styles.footercolone} col`}>
             <Link href="/">
               <a className={styles.footerlogo}>
-                <Image
-                  src="https://myriadsolutionz.com/wp-content/uploads/2019/10/logo-1.svg"
-                  alt="Landscape picture"
-                  width="120"
-                  height="38"
-                />
+                {Width ? (<Image
+                  src={logo}
+                  alt={useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.title()}
+                  width={Width}
+                  height={height}
+                />):""}
+                
               </a>
             </Link>
             {address || emailAddress || phone1 || phone2  ? (
@@ -100,43 +199,9 @@ function Footer({ copyrightHolder = "Company Name" }: Props): JSX.Element {
             <Heading level={"h3"} className={styles.footercoltitle}>
               Site Analysis Report
             </Heading>
-            <form
-              className={`${styles.websitecheckup} ${styles.siteanalysisreport}`}
-              method="POST"
-            >
-              <div className="alert alert-success d-none" role="alert">
-                Your enquiry has been received at Myriad Solutionz. We will get
-                back to you with 2 business days. Thank you!
-              </div>
-              <div className="alert alert-danger d-none" role="alert">
-                Please Try Again.
-              </div>
-              <div className="pos-rel">
-                <i className="fas fa-globe"></i>
-                <input
-                  className="footer-input"
-                  type="url"
-                  name="website_link"
-                  placeholder="Website URL"
-                />
-              </div>
-              <div className="pos-rel">
-                <i className="fas fa-at"></i>
-                <input
-                  className={`${styles.footerinput} ${styles.lastinput}`}
-                  type="email"
-                  name="user_email"
-                  placeholder="Your Email ID"
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn btn-default form-submit-button"
-              >
-                <i className="fa fa-long-arrow-alt-right"></i>
-              </button>
-              <input type="hidden" value="save_website_checkup" name="action" />
-            </form>
+            <Cf7FormWrapper url={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${freeReportFooterFormId}/feedback`}>
+              <Form handler={undefined} isLoading={false} isSent={false} hasError={false} />
+            </Cf7FormWrapper>
           </div>
         </div>
         <div className={`${styles.footerbottom} container`}>

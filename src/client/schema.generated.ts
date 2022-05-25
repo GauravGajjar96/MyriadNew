@@ -7295,8 +7295,14 @@ export const generatedSchema = {
   ThemeGeneralSettings_Generalthemesettings: {
     __typename: { __type: "String!" },
     address: { __type: "String" },
+    careersFormId: { __type: "Float" },
+    contactFormId: { __type: "Float" },
     emailAddress: { __type: "String" },
     fieldGroupName: { __type: "String" },
+    footerBgImage: { __type: "MediaItem" },
+    freeReportFooterFormId: { __type: "Float" },
+    freeReportFormId: { __type: "Float" },
+    logo: { __type: "MediaItem" },
     phone1: { __type: "String" },
     phone2: { __type: "String" },
     socialMediaList: {
@@ -15772,11 +15778,17 @@ export interface ThemeGeneralSettings {
 export interface ThemeGeneralSettings_Generalthemesettings {
   __typename?: "ThemeGeneralSettings_Generalthemesettings";
   address?: Maybe<ScalarsEnums["String"]>;
+  careersFormId?: Maybe<ScalarsEnums["Float"]>;
+  contactFormId?: Maybe<ScalarsEnums["Float"]>;
   emailAddress?: Maybe<ScalarsEnums["String"]>;
   /**
    * The name of the ACF Field Group
    */
   fieldGroupName?: Maybe<ScalarsEnums["String"]>;
+  footerBgImage?: Maybe<MediaItem>;
+  freeReportFooterFormId?: Maybe<ScalarsEnums["Float"]>;
+  freeReportFormId?: Maybe<ScalarsEnums["Float"]>;
+  logo?: Maybe<MediaItem>;
   phone1?: Maybe<ScalarsEnums["String"]>;
   phone2?: Maybe<ScalarsEnums["String"]>;
   socialMediaList?: Maybe<

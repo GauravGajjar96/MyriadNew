@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "scss/components/FlexibleComponentStyles/CareersSection.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { client} from "client";
 import {
   Accordion,
   AccordionItem,
@@ -143,7 +144,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
 
   useEffect(() => {
     
-    fetch('http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459',{
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${careersFormId}`,{
       method:"GET",
     })
       .then((res) => res.json())
@@ -151,7 +152,8 @@ function CareersSection({ QueryData }: Props): JSX.Element {
         setFormInputs(data)})
   }, [])
   // console.log(formInput);
-
+  const { useQuery } = client;
+  const careersFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
   return (
     <>
       <section className="careers_section commonPadding">
@@ -204,7 +206,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
                 <button type="button" className="close custom-close" data-dismiss="modal" onClick={(e) => closeModal(e)}><i className="fas fa-times"></i></button>
                 <Image
                         
-                          src="https://myriadsolutionz.com/wp-content/themes/Myriad-New/images/seo-banner-1.jpg"
+                          src={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2022/05/seo-banner-1.jpg`}
                           alt="popup_img"
                           layout="responsive"
                           width={500}
@@ -214,7 +216,7 @@ function CareersSection({ QueryData }: Props): JSX.Element {
               <div className="modal-body">
                 <h3 className="mb-4">Apply Now</h3>
             
-                <Cf7FormWrapper url="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/459/feedback">
+                <Cf7FormWrapper url={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${careersFormId}/feedback`}>
                     <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput} fieldError={[]}/>
                   </Cf7FormWrapper>
               </div>

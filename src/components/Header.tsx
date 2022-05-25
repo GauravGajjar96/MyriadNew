@@ -59,7 +59,7 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
     <form onSubmit={handleFormSubmit}>
 
     <div className="form-fields row d-flex freereport-form">
-      {inputData.properties.form.fields.map((item,index) => {
+      {inputData?.properties?.form?.fields.map((item,index) => {
       const inputName = item?.name;
       const inputType = item?.type;
       const labels = item?.labels;
@@ -159,28 +159,53 @@ function Header({
 
   useEffect(() => {
     
-    fetch('http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/564',{
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${freeReportFormId}`,{
       method:"GET",
     })
       .then((res) => res.json())
       .then((data) => {
         setFormInputs(data)})
   }, [])
+  const { useQuery } = client;
+  const logo = useQuery().themeGeneralSettings?.generalThemeSettings?.logo.sourceUrl();
+  const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
+  const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
+  const freeReportFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.freeReportFormId;
+  const [stickyClass, setStickyClass] = useState('relative');
+
+  useEffect(() => {
+    window.addEventListener('scroll', stickNavbar);
+
+    return () => {
+      window.removeEventListener('scroll', stickNavbar);
+    };
+  }, []);
+
+  const stickNavbar = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight > 500 ? setStickyClass('fixed animated') : setStickyClass('relative');
+    }
+  };
+
   return (
     <>
-    <header>
+    <header className={stickyClass}>
       <div className="container">
         <div className={styles.wrap}>
           <div className={styles["title-wrap"]}>
             <p className={styles["site-title"]}>
               <Link href="/">
                 <a>
+                {Width ? (
                   <Image
-                    src="https://myriadsolutionz.com/wp-content/uploads/2019/10/logo-1.svg"
-                    alt="Landscape picture"
-                    width={120}
-                    height={38}
+                    src={logo}
+                    alt={useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.title()}
+                    width={Width}
+                    height={height}
                   />
+                ):""}
+                  
                 </a>
               </Link>
             </p>
@@ -257,7 +282,7 @@ function Header({
               <button type="button" className="close custom-close" data-dismiss="modal" onClick={(e) => closeModal(e)}><i className="fas fa-times"></i></button>
               <Image
                       
-                        src="https://myriadsolutionz.com/wp-content/themes/Myriad-New/images/seo-banner-1.jpg"
+                        src={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2022/05/seo-banner-1.jpg`}
                         alt="popup_img"
                         layout="responsive"
                         width={500}
@@ -267,7 +292,7 @@ function Header({
             <div className="modal-body">
               <h3>Exclusive site analysis report</h3>
               <p>Leave your email address to get</p>
-              <Cf7FormWrapper url="http://localhost/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/564/feedback">
+              <Cf7FormWrapper url={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${freeReportFormId}/feedback`}>
                   <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput} fieldError={[]}/>
                 </Cf7FormWrapper>
             </div>

@@ -166,7 +166,10 @@ footer.main p {
         min-width: auto;
         -webkit-appearance: button;
         user-select: none;
-        border: 1px solid transparent;
+        border: 1px solid transparent;background-color:#fff;
+        &:hover{
+          background-color: rgb(224, 43, 47);
+        }
         i {
           text-align: center;
           line-height: 1.15;

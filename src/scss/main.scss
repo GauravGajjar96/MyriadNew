@@ -658,6 +658,22 @@ button.close{    border: 0;
   .bgImage .overlay_gd1{opacity: .93;z-index: 0;}
   body .w-100{width: 100% !important;}
   .freereport-form h3{margin-bottom: 0.5rem;}
+
+  header.fixed{
+    background: #e02b2f !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: -100px;
+    animation : showNav .3s linear forwards .1s;
+  }
+@keyframes showNav{
+  100%{
+    top:0;
+  }
+}
 @media (min-width: 576px) {
   .container {
     max-width: 540px;

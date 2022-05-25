@@ -249,9 +249,10 @@ function ContactSection({ QueryData }: Props): JSX.Element{
   const phone2 = useQuery().themeGeneralSettings?.generalThemeSettings?.phone2;
   const socialMediaList = useQuery().themeGeneralSettings?.generalThemeSettings?.socialMediaList;
   const [formInput,setFormInputs] = useState({});
+  const contactFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.contactFormId;
   useEffect(() => {
     
-    fetch('https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455',{
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${contactFormId}`,{
       method:"GET",
     })
       .then((res) => res.json())
@@ -338,7 +339,7 @@ function ContactSection({ QueryData }: Props): JSX.Element{
 							</div>
 						</div>
 					</form>*/}
-          <Cf7FormWrapper url={`https://codywebz.com/myriadsolutionz/wp-json/contact-form-7/v1/contact-forms/455/feedback`}>
+          <Cf7FormWrapper url={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/contact-form-7/v1/contact-forms/${contactFormId}/feedback`}>
             <Form handler={undefined} isLoading={false} isSent={false} hasError={false} inputData={formInput} fieldError={[]}/>
           </Cf7FormWrapper>
                   </div>
