@@ -291,13 +291,9 @@ function Header({
           <div className="modal-content">
             <div className="modal-header">
               <button type="button" className="close custom-close" data-dismiss="modal" onClick={(e) => closeModal(e)}><i className="fas fa-times"></i></button>
-              <Image
-                      
-                        src={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2022/05/seo-banner-1.jpg`}
-                        alt="popup_img"
-                        layout="responsive"
-                        width={500}
-                        height={201}
+              <img  
+                  src={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2022/05/seo-banner-1.jpg`}
+                  alt="popup_img"
                       />
             </div>
             <div className="modal-body">

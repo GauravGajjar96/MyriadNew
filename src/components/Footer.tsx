@@ -110,11 +110,14 @@ function Footer({ copyrightHolder = "Company Name" }: Props): JSX.Element {
   const phone2 = useQuery().themeGeneralSettings?.generalThemeSettings?.phone2;
   const socialMediaList = useQuery().themeGeneralSettings?.generalThemeSettings?.socialMediaList;
   const logo = useQuery().themeGeneralSettings?.generalThemeSettings?.logo.sourceUrl();
-  const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
-  const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
+
   const freeReportFooterFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.freeReportFooterFormId;
   const footerBgImage = useQuery().themeGeneralSettings?.generalThemeSettings?.footerBgImage.sourceUrl();
-
+  const LogoImage = ({ src, width, quality }) => {
+    return `${String(logo)}?q=${quality || 100}`;
+  };
+  const Width = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.width;
+  const height = useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.mediaDetails?.height;
   const [formInput,setFormInputs] = useState({});
   useEffect(() => {
     
@@ -139,12 +142,15 @@ function Footer({ copyrightHolder = "Company Name" }: Props): JSX.Element {
           <div className={`${styles.footercolone} col`}>
             <Link href="/">
               <a className={styles.footerlogo}>
-                {Width ? (<Image
-                  src={logo}
-                  alt={useQuery().themeGeneralSettings?.generalThemeSettings?.logo?.title()}
-                  width={Width}
-                  height={height}
-                />):""}
+              {logo ? (
+                  <Image
+                      loader={LogoImage}
+                      src="loader.png"
+                      alt="Myriad Solutionz"
+                      width={Width}
+                      height={height}
+                    />
+                ):""}
                 
               </a>
             </Link>
