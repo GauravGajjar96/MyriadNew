@@ -50,7 +50,7 @@ export function PageComponent({ page }: PageProps) {
         {LayoutOptions.map((Layout, index) => {
           var ComponentsName = Layout.__typename;
           var ComponentsData = Layout.$on[ComponentsName];
-
+          if (typeof ComponentsData !== "undefined") {
             console.log(ComponentsName);
           return (
             <div key={index}>
@@ -154,6 +154,13 @@ export function PageComponent({ page }: PageProps) {
               
             </div>
           );
+        }
+        // fallback if the component doesn't exist
+return (
+<p>
+The component <strong>{ComponentsName}</strong> has not been created yet.
+</p>
+);
         })}
       </main>
 

@@ -51,7 +51,7 @@ export default function Page() {
           var ComponentsName = Layout.__typename;
           var ComponentsData = Layout.$on[ComponentsName];
           // console.log(ComponentsData);
-
+          if (typeof ComponentsData !== "undefined") {
           return (
             <div key={index}>
               {ComponentsName ==
@@ -153,6 +153,13 @@ export default function Page() {
               )}
             </div>
           );
+        }
+        // fallback if the component doesn't exist
+return (
+<p>
+The component <strong>{ComponentsName}</strong> has not been created yet.
+</p>
+);
         })}
       </main>
       <Footer copyrightHolder={generalSettings.title} />
