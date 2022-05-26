@@ -65,7 +65,7 @@ function ContentWithSidebar({ QueryData }: Props): JSX.Element {
                         <a
                           href={oslink.url}
                           className={
-                            oslink.url === router.pathname ? "active" : ""
+                            oslink.url.substring(oslink.url.lastIndexOf('/') + 3) === router.asPath ? "active" : ""
                           }
                         >
                           {oslink.label}
