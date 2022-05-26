@@ -57,7 +57,9 @@ function ContentWithSidebar({ QueryData }: Props): JSX.Element {
               </div>
               <div className={`${styles.sidebarCol} col`}>
                 <ul className={styles.sidebarlinks}>
-                  {os_links?.map((oslink) => (
+                  {os_links?.map((oslink) => {
+                    console.log(oslink.url,router.pathname,router.asPath);
+                    return(
                     <li key={`${oslink.label}1`}>
                       <Link href={oslink.url ?? ""}>
                         <a
@@ -70,7 +72,8 @@ function ContentWithSidebar({ QueryData }: Props): JSX.Element {
                         </a>
                       </Link>
                     </li>
-                  ))}
+                  )
+                        })}
                 </ul>
               </div>
             </div>
