@@ -35,7 +35,7 @@ function FullWidthCTA({ QueryData }: Props): JSX.Element{
                   <div className={styles.ctabuttonGroup}>
                     {Buttons.map((Button, index) => {
                       return (
-                        <Link href={String(Button.link.url)} key={index}>
+                        <Link href={String(Button?.link?.url)} key={index}>
                           <a className={`${styles.ctabutton} commonButton commonButtonOutlined ${ Button.buttonIcon ? 'commonButtonIcon' : ''}`}>{Button.buttonIcon ? (<i className={Button.buttonIcon}></i>) : ""}{Button.link.title}</a>
                         </Link>
                       );

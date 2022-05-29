@@ -62,7 +62,7 @@ function ServicesBanner({ QueryData }: Props): JSX.Element {
                   ""
                 )}
               </div>
-              {Width ? (
+              {MainImage ? (
                 <div className={`${styles.imageCol}  col right-col`}>
                     <Image
                     loader={ServiceBannerImg}

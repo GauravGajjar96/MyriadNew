@@ -91,6 +91,7 @@ function ExpertiseSection({ QueryData }: Props): JSX.Element {
             {showCTA == "Yes" ? (
               <div className={`${styles.calltoactionblock} col`}>
                 <div className={`${styles.calltoaction} text-center`}>
+                  {ctaIcon ? (
                   <Image
                     loader={CTAImage}
                     src="loader.png"
@@ -98,7 +99,7 @@ function ExpertiseSection({ QueryData }: Props): JSX.Element {
                     layout="fixed"
                     width={Width}
                     height={height}
-                  />
+                  />):""}
                   {ctaHeading ? (
                     <Heading level={ctaHeadingTag} className={styles.h2}>
                       {ctaHeading}

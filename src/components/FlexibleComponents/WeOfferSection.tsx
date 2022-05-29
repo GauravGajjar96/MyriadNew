@@ -20,7 +20,7 @@ function WeOfferSection({ QueryData }: Props): JSX.Element {
           {Offers ? (
             <div className={`${styles.offerslist} d-flex justify-space row`}>
               {Offers.map((item, index) => {
-                const imgs = String(item.image.sourceUrl());
+                const imgs = String(item?.image?.sourceUrl());
                 const IconList = ({ src, width, quality }) => {
                   return `${String(item.image.sourceUrl())}?q=${
                     quality || 100
@@ -31,9 +31,9 @@ function WeOfferSection({ QueryData }: Props): JSX.Element {
                 const height = item?.image?.mediaDetails?.height;
                 return (
                   <div className={`${styles.offerbox} col`} key={index}>
-                    {Width ? (
+                    {imgs ? (
                       <Image
-                        loader={({ src }) => imgs}
+                        loader={IconList}
                         src="loader.png"
                         alt={item.image.title()}
                         layout="responsive"

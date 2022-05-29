@@ -65,7 +65,7 @@ function IntroSection({ QueryData }: Props): JSX.Element {
                 ""
               )}
             </div>
-            {Width ? (
+            {IntroImage ? (
               <div className={`${styles.right_col} image-col col`}>
                 <Image
                   loader={AuthorImage}

@@ -23,7 +23,7 @@ function RelatedProjects({ QueryData }: Props): JSX.Element {
 
   
   const pID = projectList.map((item) => {        
-   return item.termTaxonomyId;
+   return item?.termTaxonomyId;
   }).join(",");
 
   const project = query.portfolioCategory({
