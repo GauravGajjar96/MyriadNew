@@ -65,7 +65,7 @@ export const Form = function Form({ handler, isLoading, isSent, hasError,inputDa
     <form onSubmit={handleFormSubmit}>
 
     <div className="form-fields row d-flex careers-form">
-      {inputData.properties.form.fields.map((item,index) => {
+      {inputData?.properties?.form?.fields.map((item,index) => {
       const inputName = item?.name;
       const inputType = item?.type;
       const labels = item?.labels;

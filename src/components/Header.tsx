@@ -153,7 +153,7 @@ function Header({
     });
     return tree;
   };
-  const $hierarchicalList = flatListToHierarchical(links.nodes);
+  const $hierarchicalList = flatListToHierarchical(links?.nodes);
   const [dropdown, setDropdown] = useState(false);
   const router = useRouter();
   const [modal,showModal]=useState(false);

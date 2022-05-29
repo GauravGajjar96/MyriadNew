@@ -82,7 +82,7 @@ function ChooseUs({ QueryData }: Props): JSX.Element {
                         ""
                         )}
                 </div>
-                {Width ? (
+                {chooseImage ? (
                 <div className={`${styles.imageCol}  col right-col`}>
                     <Image
                     loader={bgImage}

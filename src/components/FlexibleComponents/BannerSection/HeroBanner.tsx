@@ -47,8 +47,8 @@ function HeroBanner({ QueryData }: Props): JSX.Element {
                   <div className={styles.buttonGroup}>
                     {Buttons.map((Button, index) => {
                       return (
-                        <Link href={String(Button.link.url)} key={index}>
-                          <a className="commonButton">{Button.link.title}</a>
+                        <Link href={String(Button?.link?.url)} key={index}>
+                          <a className="commonButton">{Button?.link?.title}</a>
                         </Link>
                       );
                     })}
