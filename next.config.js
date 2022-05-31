@@ -15,5 +15,5 @@ module.exports = withFaust({
     minimumCacheTTL: 60,
     layoutRaw: true,
   },
-  staticPageGenerationTimeout: 1000,
+  staticPageGenerationTimeout: 10000,
 });

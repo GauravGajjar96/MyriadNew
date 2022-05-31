@@ -156,7 +156,7 @@ export default function Page() {
         }
         // fallback if the component doesn't exist
 return (
-<p>
+<p key={index}>
 The component <strong>{ComponentsName}</strong> has not been created yet.
 </p>
 );

@@ -8,24 +8,23 @@ import styles from "scss/components/FlexibleComponentStyles/ContentWithSidebar.m
 
 interface Props {
   QueryData: any;
+  menuData:any;
 }
 
 
-function ContentWithSidebar({ QueryData }: Props): JSX.Element {
+function ContentWithSidebar({ QueryData,menuData }: Props): JSX.Element {
   const MainHeading = QueryData?.heading;
   const HeadingTag = QueryData?.headingTag;
   const manageSpacing = QueryData?.manageSpacing;
   const bgColor = QueryData?.layoutColorOption;
   const blockContent = QueryData?.blockContent;
 
-  const { menuItems } = client.useQuery();
+  const { menuItems } = menuData;
   const router = useRouter();
   const os_links = menuItems({
     where: { location: MenuLocationEnum.OUR_SERVICES },
   }).nodes;
-  const footer_links = menuItems({
-    where: { location: MenuLocationEnum.FOOTER },
-  }).nodes;
+
   return (
     <>
       <section

@@ -22,6 +22,7 @@ export interface PageProps {
 
 export function PageComponent({ page }: PageProps) {
   const { useQuery, usePage } = client;
+  const { mData } = client.useQuery();
   const generalSettings = useQuery().generalSettings;
   const CareerFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
   const LayoutOptions = page.fieldLayoutOptions.flexibleLayouts;
@@ -79,7 +80,7 @@ export function PageComponent({ page }: PageProps) {
                 <ServicesBanner QueryData={ComponentsData} />
               ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithSidebar" ? (
-                <ContentWithSidebar QueryData={ComponentsData} />
+                <ContentWithSidebar QueryData={ComponentsData} menuData={mData} />
               ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_FullWidthCta" ? (
                 <FullWidthCTA QueryData={ComponentsData} />
@@ -104,7 +105,7 @@ export function PageComponent({ page }: PageProps) {
         }
         // fallback if the component doesn't exist
 return (
-<p>
+<p key={index}>
 The component <strong>{ComponentsName}</strong> has not been created yet.
 </p>
 );
