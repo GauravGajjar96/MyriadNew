@@ -26,7 +26,7 @@ export function PageComponent({ page }: PageProps) {
   const CareerFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
 
   const { usePage } = client;
-  const LayoutOptions = usePage().fieldLayoutOptions.flexibleLayouts;
+  const LayoutOptions = page.fieldLayoutOptions.flexibleLayouts;
 
   return (
     <>
