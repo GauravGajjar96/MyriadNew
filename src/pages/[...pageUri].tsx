@@ -21,11 +21,9 @@ export interface PageProps {
 }
 
 export function PageComponent({ page }: PageProps) {
-  const { useQuery } = client;
+  const { useQuery, usePage } = client;
   const generalSettings = useQuery().generalSettings;
   const CareerFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
-
-  const { usePage } = client;
   const LayoutOptions = page.fieldLayoutOptions.flexibleLayouts;
 
   return (
@@ -41,111 +39,60 @@ export function PageComponent({ page }: PageProps) {
         </title>
       </Head>
 
-      {/* <Hero
-        title={page?.title()}
-        bgImage={page?.featuredImage?.node.sourceUrl()}
-      /> */}
-
       <main className="content content-single">
         {LayoutOptions.map((Layout, index) => {
           var ComponentsName = Layout.__typename;
           var ComponentsData = Layout.$on[ComponentsName];
           if (typeof ComponentsData !== "undefined") {
-            console.log(ComponentsName);
+           // console.log(ComponentsName);
           return (
             <div key={index}>
               {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_HeroSection" ? (
                 <HeroBanner QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_InnerBannerSection" ? (
                 <InnerBanner QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_IntroSection" ? (
                 <IntroSection QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_OffersSection" ? (
                 <WeOfferSection QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ServicesSection" ? (
                 <SolutionServices QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_Portfolio" ? (
                 <PortfolioSection QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_Expertise" ? (
                 <ExpertiseSection QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_AboutInfo" ? (
                 <AboutInfo QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ChooseUsSection" ? (
                 <ChooseUs QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ServicesBannerSection" ? (
                 <ServicesBanner QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithSidebar" ? (
                 <ContentWithSidebar QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_FullWidthCta" ? (
                 <FullWidthCTA QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-            
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_CareersSection" ? (
                 <CareersSection CareerForm={CareerFormId} QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ContactSection" ? (
                 <ContactSection QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithImage" ? (
                 <ContentWithImage QueryData={ComponentsData} />
-              ) : (
-                ""
-              )}
-              {ComponentsName ==
+              ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_RelatedProjects" ? (
                 <RelatedProjects QueryData={ComponentsData} />
               ) : (
@@ -181,6 +128,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     Page,
     client,
     notFound: await is404(context, { client }),
+     revalidate: 60,
   });
 }
 
