@@ -28,7 +28,14 @@ function AboutInfo({ QueryData }: Props): JSX.Element {
 
   const Width = QueryData?.ctaIcon?.mediaDetails?.width;
   const height = QueryData?.ctaIcon?.mediaDetails?.height;
-
+  const { menuItems } = client.useQuery();
+  const router = useRouter();
+  const os_links = menuItems({
+    where: { location: MenuLocationEnum.OUR_SERVICES },
+  }).nodes;
+  const footer_links = menuItems({
+    where: { location: MenuLocationEnum.FOOTER },
+  }).nodes;
   return (
     <>
       <section
