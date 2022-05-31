@@ -22,7 +22,7 @@ export interface PageProps {
 
 export function PageComponent({ page }: PageProps) {
   const { useQuery, usePage } = client;
-  const { mData } = client.useQuery();
+  const { menuItems } = client.useQuery();
   const generalSettings = useQuery().generalSettings;
   const CareerFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
   const LayoutOptions = page.fieldLayoutOptions.flexibleLayouts;
@@ -78,7 +78,8 @@ export function PageComponent({ page }: PageProps) {
               ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ServicesBannerSection" ? (
                 <ServicesBanner QueryData={ComponentsData} />
-              )  : ComponentsName ==
+              ) : ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithSidebar" ? "" : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_FullWidthCta" ? (
                 <FullWidthCTA QueryData={ComponentsData} />
               ) : ComponentsName ==
