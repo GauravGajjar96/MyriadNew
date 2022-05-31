@@ -9,7 +9,7 @@ module.exports = withFaust({
   env: {
     WPURL: process.env.NEXT_PUBLIC_WORDPRESS_URL,
   },
-  trailingSlashes: undefined,
+  trailingSlash: true,
   images: {
     domains: ["myriadsolutionz.com", "localhost", "http://localhost/myriadsolutionz", "https://myriadsolutionz.vercel.app"],
     minimumCacheTTL: 60,
