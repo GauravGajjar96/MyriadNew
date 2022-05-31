@@ -159,7 +159,6 @@ function Header({
   const [modal,showModal]=useState(false);
   const [formInput,setFormInputs] = useState({});
   function toggleModal(e){
-    e.preventDefault();
     showModal(!modal);
     document.body.classList.add('modal-open');
   }
@@ -236,7 +235,7 @@ function Header({
                       className={`${link.cssClasses} ${
                         link.children.length ? "has-submenu" : ""
                       } ${link.url === router.pathname ? "active" : ""}`} 
-                      onClick={(e) => ln==index+1 ? toggleModal(e): ""}
+                      onClick={(e) =>  {e.preventDefault();toggleModal(e)}}
                     >
                       {link.label}
                       {link.children.length ? (

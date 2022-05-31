@@ -25,7 +25,7 @@ export default function Page() {
   const { usePosts, useQuery, usePage } = client;
   const generalSettings = useQuery().generalSettings;
   const CareerFormId = useQuery().themeGeneralSettings?.generalThemeSettings?.careersFormId;
-  
+  const { menuItems } = client.useQuery();
   const posts = usePosts({
     first: 6,
     where: {
@@ -115,12 +115,12 @@ export default function Page() {
               ) : (
                 ""
               )}
-              {/* {ComponentsName ==
+              {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithSidebar" ? (
-                <ContentWithSidebar QueryData={ComponentsData} />
+                <ContentWithSidebar QueryData={ComponentsData} menuData={menuItems}/>
               ) : (
                 ""
-              )} */}
+              )}
               {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_FullWidthCta" ? (
                 <FullWidthCTA QueryData={ComponentsData} />
