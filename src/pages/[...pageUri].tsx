@@ -78,10 +78,7 @@ export function PageComponent({ page }: PageProps) {
               ) : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ServicesBannerSection" ? (
                 <ServicesBanner QueryData={ComponentsData} />
-              ) : ComponentsName ==
-              "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithSidebar" ? (
-                <ContentWithSidebar QueryData={ComponentsData} menuData={mData} />
-              ) : ComponentsName ==
+              )  : ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_FullWidthCta" ? (
                 <FullWidthCTA QueryData={ComponentsData} />
               ) : ComponentsName ==

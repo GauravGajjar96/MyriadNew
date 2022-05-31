@@ -115,12 +115,12 @@ export default function Page() {
               ) : (
                 ""
               )}
-              {ComponentsName ==
+              {/* {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithSidebar" ? (
                 <ContentWithSidebar QueryData={ComponentsData} />
               ) : (
                 ""
-              )}
+              )} */}
               {ComponentsName ==
               "Page_Fieldlayoutoptions_FlexibleLayouts_FullWidthCta" ? (
                 <FullWidthCTA QueryData={ComponentsData} />
