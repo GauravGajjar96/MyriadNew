@@ -1,4 +1,5 @@
 import { config as coreConfig } from '@faustjs/core';
+import { config as nextConfig } from '@faustjs/next';
 
 if (!process.env.NEXT_PUBLIC_WORDPRESS_URL) {
   console.error(
@@ -12,4 +13,10 @@ if (!process.env.NEXT_PUBLIC_WORDPRESS_URL) {
 export default coreConfig({
   wpUrl: process.env.NEXT_PUBLIC_WORDPRESS_URL,
   apiClientSecret: process.env.FAUSTWP_SECRET_KEY,
+});
+
+
+
+nextConfig({
+  revalidate: 60, // 60 seconds
 });
