@@ -1,6 +1,6 @@
 import { getNextStaticProps, is404 } from '@faustjs/next';
 import { client, ServiceIdType} from 'client';
-import { Footer, Header, Hero } from 'components';
+import { Footer, Header, Hero,InnerBanner,ContentWithSidebar,FullWidthCTA, } from 'components';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -22,6 +22,7 @@ export default function Page() {
 
  
   const generalSettings = useQuery().generalSettings;
+  const LayoutOptions = movie.fieldLayoutOptions.flexibleLayouts;
  
   return (
     <>
@@ -36,10 +37,37 @@ export default function Page() {
       </title>
     </Head>
 
-    <Hero title={movie?.title()} overlayColor="bg_2"/>
-
     <main className="content content-single">
-      <h2>{movie?.title()}</h2>
+    {LayoutOptions.map((Layout, index) => {
+          var ComponentsName = Layout.__typename;
+          var ComponentsData = Layout.$on[ComponentsName];
+          if (typeof ComponentsData !== "undefined") {
+           // console.log(ComponentsName);
+          return (
+            <div key={index}>
+              {ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_InnerBannerSection" ? (
+                <InnerBanner QueryData={ComponentsData} />
+              ) : ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_ContentWithSidebar" ? (
+                <ContentWithSidebar QueryData={ComponentsData} menuData={menuItems} />
+              ) : ComponentsName ==
+              "Page_Fieldlayoutoptions_FlexibleLayouts_FullWidthCta" ? (
+                <FullWidthCTA QueryData={ComponentsData} />
+              ) : (
+                ""
+              )}
+              
+            </div>
+          );
+        }
+        // fallback if the component doesn't exist
+return (
+<p key={index}>
+The component <strong>{ComponentsName}</strong> has not been created yet.
+</p>
+);
+        })}
     </main>
 
     <Footer copyrightHolder={generalSettings.title} />
