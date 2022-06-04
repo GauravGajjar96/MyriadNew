@@ -120,7 +120,7 @@ The component <strong>{ComponentsName}</strong> has not been created yet.
 export default function Page() {
   const { usePage } = client;
   const page = usePage();
-
+console.log(client);
   return <PageComponent page={page} />;
 }
 
