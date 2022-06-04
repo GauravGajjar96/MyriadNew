@@ -1,5 +1,5 @@
 import { getNextStaticProps, is404 } from '@faustjs/next';
-import { client, ServiceDataIdType} from 'client';
+import { client} from 'client';
 import { Footer, Header, Hero,InnerBanner,ContentWithSidebar,FullWidthCTA, } from 'components';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -16,7 +16,7 @@ export default function Page() {
   
   const movie = query.serviceData({
     id: String(serviceSlug),
-    idType: ServiceDataIdType.SLUG,
+    // idType: ServiceDataIdType.SLUG,
   });
 
 
