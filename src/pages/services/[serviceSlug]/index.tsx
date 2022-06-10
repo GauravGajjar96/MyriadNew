@@ -1,41 +1,35 @@
 import { getNextStaticProps, is404 } from '@faustjs/next';
-import { client, MenuLocationEnum, ServiceIdType} from 'client';
-import { Footer, Header, ServicesBanner,ContentWithSidebar,FullWidthCTA,RelatedProjects} from 'components';
+import { client, TestimonialIdType } from 'client';
+import { Footer, Header, Hero } from 'components';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+export interface PostProps {
+  post: any
+}
 
-export default function Page() {
-
-  const router= useRouter();
-  const {serviceSlug} = router.query;
-  const { usePosts, useQuery } = client;
-  const query = useQuery();
-
-  const movie = useQuery().service({
-    id: String(serviceSlug),
-    idType: ServiceIdType.SLUG,
-  });
-console.log(movie);
+export function PostComponent({ post }: PostProps) {
+  
+  const query = useQuery()
   const generalSettings = useQuery().generalSettings;
-  const sLayoutOptions = movie?.fieldLayoutOptions?.flexibleLayouts;
-console.log(sLayoutOptions);
+  const sLayoutOptions = post?.fieldLayoutOptions?.flexibleLayouts;
+  
   return (
     <>
-    <Header
-      title={generalSettings.title}
-      description={generalSettings.description}
-    />
+       <Header
+          title={generalSettings.title}
+          description={generalSettings.description}
+        />
 
-    <Head>
-      <title>
-  
-      </title>
-    </Head>
+      <Head>
+        <title>
+    
+        </title>
+      </Head>
 
-    <main className="content content-single">
-    {sLayoutOptions?.map((Layout, index) => {
+       <main className="content content-single">
+        {sLayoutOptions?.map((Layout, index) => {
           var sComponentsName = Layout.__typename;
           var sComponentsData = Layout.$on[sComponentsName];
           if (typeof sComponentsData !== "undefined") {
@@ -71,6 +65,35 @@ The component <strong>{sComponentsName}</strong> has not been created yet.
     </main>
 
     <Footer copyrightHolder={generalSettings.title} />
-  </>
+    </>
   );
-} 
+}
+
+export default function Page() {
+  const { useQuery } = client;
+  const router = useRouter();
+
+  const { serviceSlug } = router.query;
+
+  const Servicepost = useQuery().service({
+    id: String(serviceSlug),
+    idType: ServiceIdType.SLUG,
+  });
+ 
+  return <PostComponent post={Servicepost} />;
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  return getNextStaticProps(context, {
+    Page,
+    client,
+    //notFound: await is404(context, { client }),
+  });
+}
+
+export function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+}
