@@ -1,5 +1,5 @@
 import { getNextStaticProps, is404 } from '@faustjs/next';
-import { client, TestimonialIdType } from 'client';
+import { client, ServiceIdType } from 'client';
 import { Footer, Header, Hero } from 'components';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
