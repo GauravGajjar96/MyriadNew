@@ -10,7 +10,7 @@ export interface PostProps {
 }
 
 export function PostComponent({ post }: PostProps) {
-  
+  const { useQuery } = client;
   const query = useQuery()
   const generalSettings = useQuery().generalSettings;
   const sLayoutOptions = post?.fieldLayoutOptions?.flexibleLayouts;
