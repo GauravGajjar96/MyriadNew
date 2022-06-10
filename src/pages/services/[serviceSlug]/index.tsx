@@ -1,6 +1,6 @@
 import { getNextStaticProps, is404 } from '@faustjs/next';
-import { client, ServiceIdType } from 'client';
-import { Footer, Header, Hero } from 'components';
+import { client, MenuLocationEnum, ServiceIdType} from 'client';
+import { Footer, Header, ServicesBanner,ContentWithSidebar,FullWidthCTA,RelatedProjects} from 'components';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
